@@ -65,6 +65,19 @@ const Residents = () => {
         }
     };
 
+    const handleExport = () => {
+        fetch(`${API_BASE_URL}/residents/csv/export`)
+            .then((response) => response.text())
+            .then((csvData) => {
+                const blob = new Blob([csvData], { type: "text/csv" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "residents.csv";
+                link.click();
+            })
+            .catch((error) => console.error("Error exporting CSV:", error));
+    };
+
     return (
         <div>
             <h1>Residents</h1>
@@ -85,6 +98,9 @@ const Residents = () => {
             <Link to="/add-resident">
                 <button>Add New Resident</button>
             </Link>
+
+            {/* Export Button */}
+            <button onClick={handleExport}>Download CSV</button>
             <table>
                 <thead>
                 <tr>

@@ -28,7 +28,7 @@ const ResidentDetails = () => {
             <p><strong>Status:</strong> {resident.status}</p>
             <p><strong>Address:</strong> {resident.address || "N/A"}</p>
             <p><strong>Date of Joining:</strong> {resident.dateOfJoining || "N/A"}</p>
-            <Link to="/">
+            <Link to="/residents">
                 <button>Back to Residents List</button>
             </Link>
         </div>
