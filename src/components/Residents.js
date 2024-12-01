@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 const Residents = () => {
     const [residents, setResidents] = useState([]);
+    const [filteredResidents, setFilteredResidents] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [statusFilter, setStatusFilter] = useState("");
 
     useEffect(() => {
         fetch(`${API_BASE_URL}/residents`)
@@ -15,9 +18,36 @@ const Residents = () => {
                     roomNumber: resident.room ? resident.room.roomId : "N/A"
                 }));
                 setResidents(updatedData);
+                setFilteredResidents(data);
             })
             .catch((error) => console.error("Error fetching residents:", error));
     }, []);
+
+    const handleSearch = (e) => {
+        const term = e.target.value;
+        setSearchTerm(term);
+
+        filterResidents(term, statusFilter);
+    };
+    const handleStatusFilter = (e) => {
+        const status = e.target.value;
+        setStatusFilter(status);
+
+        filterResidents(searchTerm, status);
+    };
+
+    const filterResidents = (searchTerm, statusFilter) => {
+        const filtered = residents.filter((resident) => {
+            const matchesSearch =
+                resident.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                resident.roomNumber.toString().includes(searchTerm);
+            const matchesStatus =
+                statusFilter ? resident.status === statusFilter : true;
+            return matchesSearch && matchesStatus;
+        });
+
+        setFilteredResidents(filtered);
+    };
 
     const handleDelete = (id) => {
         // Confirm deletion
@@ -38,6 +68,20 @@ const Residents = () => {
     return (
         <div>
             <h1>Residents</h1>
+            {/* Search Input */}
+            <input
+                type="text"
+                placeholder="Search by name or room number"
+                value={searchTerm}
+                onChange={handleSearch}
+            />
+
+            {/* Status Filter Dropdown */}
+            <select value={statusFilter} onChange={handleStatusFilter}>
+                <option value="">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
             <Link to="/add-resident">
                 <button>Add New Resident</button>
             </Link>
@@ -54,7 +98,7 @@ const Residents = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {residents.map((resident) => (
+                {filteredResidents.map((resident) => (
                     <tr key={resident.id}>
                         <td>{resident.id}</td>
                         <td>{resident.name}</td>
@@ -63,6 +107,9 @@ const Residents = () => {
                         <td>{resident.phone}</td>
                         <td>{resident.status}</td>
                         <td>
+                            <Link to={`/resident-details/${resident.id}`}>
+                                <button>View Details</button>
+                            </Link>
                             <Link to={`/edit-resident/${resident.id}`}>
                                 <button>Edit</button>
                             </Link>
