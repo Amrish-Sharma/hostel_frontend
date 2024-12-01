@@ -1,5 +1,3 @@
-Here is an updated `README.md` for your frontend project:
-
 # Hostel Management Frontend
 
 This is the frontend application for the Hostel Management System, built using React.
