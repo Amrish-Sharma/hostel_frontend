@@ -8,6 +8,9 @@ const Welcome = () => {
             <p>
                 <Link to="/residents">View Residents</Link>
             </p>
+            <p>
+                <Link to="/rooms">View Rooms</Link>
+            </p>
         </div>
     );
 };

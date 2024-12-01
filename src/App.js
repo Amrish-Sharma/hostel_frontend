@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Welcome from "./components/Welcome";
-import Residents from "./components/Residents";
-import AddResident from "./components/AddResident";
-import EditResident from "./components/EditResident";
-import ResidentDetails from "./components/ResidentDetails";
+import Residents from "./components/resident/Residents";
+import AddResident from "./components/resident/AddResident";
+import EditResident from "./components/resident/EditResident";
+import ResidentDetails from "./components/resident/ResidentDetails";
+import Rooms from "./components/room/Rooms";
+import AddRooms from "./components/room/AddRooms";
 
 
 const App = () => {
@@ -13,9 +15,11 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Welcome />} />
                 <Route path="/residents" element={<Residents />} />
+                <Route path="/rooms" element={<Rooms />} />
                 <Route path="/add-resident" element={<AddResident />} />
                 <Route path="/edit-resident/:id" element={<EditResident />} />
                 <Route path="/resident-details/:id" element={<ResidentDetails />} />
+                <Route path="/add-rooms" element={<AddRooms />} />
             </Routes>
         </Router>
     );

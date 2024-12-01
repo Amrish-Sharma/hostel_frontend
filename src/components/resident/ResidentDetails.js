@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import API_BASE_URL from "../config";
+import API_BASE_URL from "../../config";
 
 const ResidentDetails = () => {
     const { id } = useParams(); // Get the resident ID from the URL
