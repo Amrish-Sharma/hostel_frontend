@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import API_BASE_URL from "../config";
 
-
 const EditResident = () => {
     const { id } = useParams(); // Get resident id from the URL
     const [resident, setResident] = useState({
@@ -13,26 +12,46 @@ const EditResident = () => {
         status: "Active",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+    const [roomNumberError, setRoomNumberError] = useState("");
+    const [phoneError, setPhoneError] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
-    if (!isSubmitting)
-        {
+        if (!isSubmitting) {
             // Fetch resident details by id
             fetch(`${API_BASE_URL}/residents/${id}`)
                 .then((response) => response.json())
                 .then((data) => setResident({...data, roomNumber: data.room.roomId}))
                 .catch((error) => console.error("Error fetching resident data:", error));
-        }}, [id,isSubmitting]);
+        }
+    }, [id, isSubmitting]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setResident({ ...resident, [name]: value });
+
+        if (name === "roomNumber") {
+            if (!/^\d+$/.test(value)) {
+                setRoomNumberError("Room number must be a valid number");
+            } else {
+                setRoomNumberError("");
+            }
+        }
+
+        if (name === "phone") {
+            if (value.length > 10) {
+                setPhoneError("Phone number must be a maximum of 10 digits");
+            } else {
+                setPhoneError("");
+            }
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (roomNumberError || phoneError) {
+            return;
+        }
         setIsSubmitting(true);
         // Send updated resident data to the backend
         fetch(`${API_BASE_URL}/residents/${id}`, {
@@ -40,7 +59,7 @@ const EditResident = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({...resident, roomNumber: resident.room.roomId}),
+            body: JSON.stringify({...resident, room: { roomId: resident.roomNumber }}),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -50,9 +69,10 @@ const EditResident = () => {
             })
             .catch((error) => {
                 console.error("Error updating resident:", error);
-            }).finally(() => {
-            setIsSubmitting(false);
-        });
+            })
+            .finally(() => {
+                setIsSubmitting(false);
+            });
     };
 
     return (
@@ -78,6 +98,7 @@ const EditResident = () => {
                         onChange={handleChange}
                         required
                     />
+                    {roomNumberError && <p style={{ color: "red" }}>{roomNumberError}</p>}
                 </div>
                 <div>
                     <label>Email:</label>
@@ -98,6 +119,7 @@ const EditResident = () => {
                         onChange={handleChange}
                         required
                     />
+                    {phoneError && <p style={{ color: "red" }}>{phoneError}</p>}
                 </div>
                 <div>
                     <label>Status:</label>

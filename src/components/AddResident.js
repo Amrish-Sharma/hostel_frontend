@@ -10,28 +10,62 @@ const AddResident = () => {
         phone: "",
         status: "Active",
     });
+    const [roomNumberError, setRoomNumberError] = useState("");
+    const [phoneError, setPhoneError] = useState("");
+    const [emailError, setEmailError] = useState("");
     const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setResident({ ...resident, [name]: value });
+        setResident({ ...resident, [name]: value});
+
+        if (name === "roomNumber") {
+            if (!/^\d+$/.test(value)) {
+                setRoomNumberError("Room number must be a valid number");
+            } else {
+                setRoomNumberError("");
+            }
+        }
+
+        if (name === "phone") {
+            if (value.length > 10) {
+                setPhoneError("Phone number must be a maximum of 10 digits");
+            } else {
+                setPhoneError("");
+            }
+        }
+        if (name === "email") {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(value)) {
+                setEmailError("Email must be a valid email address");
+            } else {
+                setEmailError("");
+            }
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (roomNumberError || phoneError || emailError) {
+            return;
+        }
+
+        const residentData = {
+            ...resident,
+            room: { roomId: resident.roomNumber }
+        };
         // Send data to the backend
         fetch(`${API_BASE_URL}/residents`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(resident),
+            body: JSON.stringify(residentData),
         })
             .then((response) => response.json())
             .then((data) => {
                 console.log("Resident added:", data);
                 navigate("/residents");
-
-                // You could also redirect or clear the form after success
             })
             .catch((error) => {
                 console.error("Error adding resident:", error);
@@ -61,6 +95,7 @@ const AddResident = () => {
                         onChange={handleChange}
                         required
                     />
+                    {roomNumberError && <p style={{ color: "red" }}>{roomNumberError}</p>}
                 </div>
                 <div>
                     <label>Email:</label>
@@ -81,6 +116,7 @@ const AddResident = () => {
                         onChange={handleChange}
                         required
                     />
+                    {phoneError && <p style={{ color: "red" }}>{phoneError}</p>}
                 </div>
                 <div>
                     <label>Status:</label>
