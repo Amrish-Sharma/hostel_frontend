@@ -1,91 +1,73 @@
-```markdown
+Here is an updated `README.md` for your frontend project:
+
 # Hostel Management Frontend
 
-This project is the frontend for a hostel management system, built using React. It allows users to manage residents, including adding, editing, and viewing resident details.
+This is the frontend application for the Hostel Management System, built using React.
 
-## Getting Started
+## Prerequisites
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
-### Prerequisites
-
-Make sure you have Node.js and npm installed on your machine. You can download them from [Node.js](https://nodejs.org/).
-
-### Installation
+## Installation
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/Amrish-Sharma/hostel_frontend.git
-    cd hostel_frontend
-    ```
+   ```bash
+   git clone https://github.com/Amrish-Sharma/hostel-management-frontend.git
+   cd hostel-management-frontend
+   ```
 
 2. Install the dependencies:
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
-### Available Scripts
+## Configuration
+
+Create a `config.js` file in the `src` directory with the following content:
+
+```javascript
+const API_BASE_URL = "http://localhost:8080/api";
+export default API_BASE_URL;
+```
+
+Replace `"http://localhost:8080/api"` with the actual base URL of your backend API.
+
+## Running the Application
+
+To start the development server, run:
+```bash
+npm start
+```
+
+The application will be available at `http://localhost:3000`.
+
+## Project Structure
+
+- `src/components`: Contains the React components for the application.
+    - `resident`: Components related to resident management.
+    - `room`: Components related to room management.
+- `src/config.js`: Configuration file for the API base URL.
+
+## Available Scripts
 
 In the project directory, you can run:
 
-#### `npm start`
+- `npm start`: Runs the app in the development mode.
+- `npm test`: Launches the test runner in the interactive watch mode.
+- `npm run build`: Builds the app for production to the `build` folder.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Add, edit, and delete residents.
+- Add, edit, and delete rooms.
+- Search and filter residents.
+- Export resident data to CSV.
 
-#### `npm test`
+## Contributing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Contributions are welcome! Please open an issue or submit a pull request for any changes.
 
-#### `npm run build`
+## License
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-#### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-### Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-```
+This project is licensed under the MIT License. See the `LICENSE` file for details.
