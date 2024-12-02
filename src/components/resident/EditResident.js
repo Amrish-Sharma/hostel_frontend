@@ -135,6 +135,9 @@ const EditResident = () => {
                 <div>
                     <button type="submit">Update Resident</button>
                 </div>
+                <div>
+                    <button onClick={() => navigate("/residents")}>Cancel</button>
+                </div>
             </form>
         </div>
     );

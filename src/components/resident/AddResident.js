@@ -132,6 +132,9 @@ const AddResident = () => {
                 <div>
                     <button type="submit">Add Resident</button>
                 </div>
+                <div>
+                    <button onClick={() => navigate("/residents")}>Cancel</button>
+                </div>
             </form>
         </div>
     );

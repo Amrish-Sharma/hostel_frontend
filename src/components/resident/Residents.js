@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API_BASE_URL from "../../config";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const Residents = () => {
@@ -8,6 +9,7 @@ const Residents = () => {
     const [filteredResidents, setFilteredResidents] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`${API_BASE_URL}/residents`)
@@ -15,7 +17,7 @@ const Residents = () => {
             .then((data) => {
                 const updatedData = data.map((resident) => ({
                     ...resident,
-                    roomNumber: resident.room ? resident.room.roomId : "N/A"
+                    roomNumber: resident.room.roomId
                 }));
                 setResidents(updatedData);
                 setFilteredResidents(data);
@@ -58,6 +60,7 @@ const Residents = () => {
                 .then(() => {
                     // Remove the resident from the list without reloading the page
                     setResidents(residents.filter((resident) => resident.id !== id));
+                    navigate("/residents");
                 })
                 .catch((error) => {
                     console.error("Error deleting resident:", error);
@@ -118,7 +121,7 @@ const Residents = () => {
                     <tr key={resident.id}>
                         <td>{resident.id}</td>
                         <td>{resident.name}</td>
-                        <td>{resident.roomNumber}</td>
+                        <td>{resident.room.roomId}</td>
                         <td>{resident.email}</td>
                         <td>{resident.phone}</td>
                         <td>{resident.status}</td>
