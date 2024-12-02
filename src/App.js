@@ -7,6 +7,7 @@ import EditResident from "./components/resident/EditResident";
 import ResidentDetails from "./components/resident/ResidentDetails";
 import Rooms from "./components/room/Rooms";
 import AddRooms from "./components/room/AddRooms";
+import EditRooms from "./components/room/EditRooms";
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
                 <Route path="/edit-resident/:id" element={<EditResident />} />
                 <Route path="/resident-details/:id" element={<ResidentDetails />} />
                 <Route path="/add-rooms" element={<AddRooms />} />
+                <Route path="/edit-rooms/:id" element={<EditRooms />} />
             </Routes>
         </Router>
     );

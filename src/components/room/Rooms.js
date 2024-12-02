@@ -61,7 +61,7 @@ const RoomList = () => {
                         <td>{room.capacity}</td>
                         <td>{room.occupied}</td>
                         <td>
-                            <button onClick={() => console.log("Edit Room", room.roomId)}>Edit</button>
+                            <button onClick={() => navigate(`/edit-rooms/${room.roomId}`)}>Edit</button>
                             <button onClick={() => handleDelete(room.roomId)}>Delete</button>
                         </td>
                     </tr>
