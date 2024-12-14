@@ -22,7 +22,7 @@ const ResidentDetails = () => {
             <h2>Resident Details</h2>
             <p><strong>ID:</strong> {resident.id}</p>
             <p><strong>Name:</strong> {resident.name}</p>
-            <p><strong>Room Number:</strong> {resident.room.roomId}</p>
+            <p><strong>Room Number:</strong> {resident.roomId}</p>
             <p><strong>Email:</strong> {resident.email}</p>
             <p><strong>Phone:</strong> {resident.phone}</p>
             <p><strong>Status:</strong> {resident.status}</p>

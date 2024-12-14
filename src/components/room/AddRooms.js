@@ -101,6 +101,7 @@ const AddRoom = () => {
                 </select>
             </div>
             <button type="submit">Add Room</button>
+            <button type="button" onClick={() => navigate("/rooms")}>Cancel</button>
         </form>
     );
 };

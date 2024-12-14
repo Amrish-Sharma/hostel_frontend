@@ -1,60 +1,56 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import API_BASE_URL from "../../config";
 
 const AddResident = () => {
     const [resident, setResident] = useState({
         name: "",
-        roomNumber: "",
+        roomId: "",
         email: "",
         phone: "",
         status: "Active",
     });
-    const [roomNumberError, setRoomNumberError] = useState("");
+    const [rooms, setRooms] = useState([]);
     const [phoneError, setPhoneError] = useState("");
     const [emailError, setEmailError] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetch(`${API_BASE_URL}/rooms/available`)
+            .then((response) => response.json())
+            .then((data) => setRooms(data))
+            .catch((error) => console.error("Error fetching rooms:", error));
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setResident({ ...resident, [name]: value});
-
-        if (name === "roomNumber") {
-            if (!/^\d+$/.test(value)) {
-                setRoomNumberError("Room number must be a valid number");
-            } else {
-                setRoomNumberError("");
-            }
-        }
+        setResident({ ...resident,
+            [name]: name === "roomId" ? parseInt(value, 10) : value
+        });
 
         if (name === "phone") {
-            if (value.length > 10) {
-                setPhoneError("Phone number must be a maximum of 10 digits");
-            } else {
-                setPhoneError("");
-            }
+            setPhoneError(value.length > 10 ? "Phone number must be a maximum of 10 digits" : "");
         }
         if (name === "email") {
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(value)) {
-                setEmailError("Email must be a valid email address");
-            } else {
-                setEmailError("");
-            }
+            setEmailError(!emailPattern.test(value) ? "Email must be a valid email address" : "");
         }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (roomNumberError || phoneError || emailError) {
+        if (phoneError || emailError || isSubmitting) {
             return;
         }
 
+        setIsSubmitting(true);
+
         const residentData = {
             ...resident,
-            room: { roomId: resident.roomNumber }
+            roomId: parseInt(resident.roomId)
         };
-        // Send data to the backend
+
         fetch(`${API_BASE_URL}/residents`, {
             method: "POST",
             headers: {
@@ -69,6 +65,9 @@ const AddResident = () => {
             })
             .catch((error) => {
                 console.error("Error adding resident:", error);
+            })
+            .finally(() => {
+                setIsSubmitting(false);
             });
     };
 
@@ -88,14 +87,19 @@ const AddResident = () => {
                 </div>
                 <div>
                     <label>Room Number:</label>
-                    <input
-                        type="text"
-                        name="roomNumber"
-                        value={resident.roomNumber}
+                    <select
+                        name="roomId"
+                        value={resident.roomId}
                         onChange={handleChange}
                         required
-                    />
-                    {roomNumberError && <p style={{ color: "red" }}>{roomNumberError}</p>}
+                    >
+                        <option value="">Select Room</option>
+                        {rooms.map((room) => (
+                            <option key={room.roomId} value={room.roomId}>
+                                {room.roomId} - {room.type}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label>Email:</label>
@@ -106,6 +110,7 @@ const AddResident = () => {
                         onChange={handleChange}
                         required
                     />
+                    {emailError && <p style={{color: "red"}}>{emailError}</p>}
                 </div>
                 <div>
                     <label>Phone:</label>
@@ -116,7 +121,7 @@ const AddResident = () => {
                         onChange={handleChange}
                         required
                     />
-                    {phoneError && <p style={{ color: "red" }}>{phoneError}</p>}
+                    {phoneError && <p style={{color: "red"}}>{phoneError}</p>}
                 </div>
                 <div>
                     <label>Status:</label>
@@ -130,7 +135,7 @@ const AddResident = () => {
                     </select>
                 </div>
                 <div>
-                    <button type="submit">Add Resident</button>
+                    <button type="submit" disabled={isSubmitting}>Add Resident</button>
                 </div>
                 <div>
                     <button onClick={() => navigate("/residents")}>Cancel</button>

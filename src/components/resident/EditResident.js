@@ -21,7 +21,7 @@ const EditResident = () => {
             // Fetch resident details by id
             fetch(`${API_BASE_URL}/residents/${id}`)
                 .then((response) => response.json())
-                .then((data) => setResident({...data, roomNumber: data.room.roomId}))
+                .then((data) => setResident({...data, roomNumber: data.roomId}))
                 .catch((error) => console.error("Error fetching resident data:", error));
         }
     }, [id, isSubmitting]);

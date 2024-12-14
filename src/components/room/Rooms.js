@@ -14,6 +14,23 @@ const RoomList = () => {
             .catch((error) => console.error("Error fetching rooms:", error));
     }, []);
 
+    const handleAssignResident = (roomId) => {
+        const residentId = prompt("Enter Resident ID to assign:");
+        if (!residentId) return;
+
+        fetch(`${API_BASE_URL}/rooms/${roomId}/assignResident/${residentId}`, {
+            method: "PUT",
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert("Resident assigned successfully!");
+                    window.location.reload();
+                } else {
+                    response.text().then((error) => alert(`Error: ${error}`));
+                }
+            })
+            .catch((error) => console.error("Error assigning resident:", error));
+    };
 
 
     const handleDelete = (roomId) => {
@@ -57,10 +74,11 @@ const RoomList = () => {
                         <td>{room.roomId}</td>
                         <td>{room.type}</td>
                         <td>{room.rent}</td>
-                        <td>{room.status}</td>
+                        <td>{room.residents.map((res) => res.name).join(", ") || "Unassigned"}</td>
                         <td>{room.capacity}</td>
                         <td>{room.occupied}</td>
                         <td>
+                            <button onClick={() => handleAssignResident(room.roomId)}>Assign Resident</button>
                             <button onClick={() => navigate(`/edit-rooms/${room.roomId}`)}>Edit</button>
                             <button onClick={() => handleDelete(room.roomId)}>Delete</button>
                         </td>
