@@ -79,6 +79,7 @@ const RoomList = () => {
                         <td>{room.occupied}</td>
                         <td>
                             <button onClick={() => handleAssignResident(room.roomId)}>Assign Resident</button>
+                            <button onClick={() => navigate(`/room-details/${room.roomId}`)}>Details</button>
                             <button onClick={() => navigate(`/edit-rooms/${room.roomId}`)}>Edit</button>
                             <button onClick={() => handleDelete(room.roomId)}>Delete</button>
                         </td>

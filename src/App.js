@@ -8,7 +8,7 @@ import ResidentDetails from "./components/resident/ResidentDetails";
 import Rooms from "./components/room/Rooms";
 import AddRooms from "./components/room/AddRooms";
 import EditRooms from "./components/room/EditRooms";
-
+import RoomDetails from "./components/room/RoomDetails";
 
 const App = () => {
     return (
@@ -22,6 +22,7 @@ const App = () => {
                 <Route path="/resident-details/:id" element={<ResidentDetails />} />
                 <Route path="/add-rooms" element={<AddRooms />} />
                 <Route path="/edit-rooms/:id" element={<EditRooms />} />
+                <Route path="/room-details/:id" element={<RoomDetails />} />
             </Routes>
         </Router>
     );
