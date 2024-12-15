@@ -22,14 +22,17 @@ const RoomDetails = () => {
     }
 
     const handleVacate = (residentId) => {
-        axios
-            .put(`${API_BASE_URL}/rooms/${room.roomId}/vacate/${residentId}`)
-            .then(() => {
-                alert("Resident vacated successfully!");
-                fetchRoomDetails();            })
-            .catch((error) => {
-                alert("Error vacating resident: " + error.response.data);
-            });
+        if (window.confirm("Are you sure you want to vacate this resident?")) {
+            axios
+                .put(`${API_BASE_URL}/rooms/${room.roomId}/vacate/${residentId}`)
+                .then(() => {
+                    alert("Resident vacated successfully!");
+                    fetchRoomDetails();
+                })
+                .catch((error) => {
+                    alert("Error vacating resident: " + error.response.data);
+                });
+        }
     };
 
     return (
@@ -51,6 +54,9 @@ const RoomDetails = () => {
             </ul>
             <Link to="/rooms">
                 <button>Back to Rooms List</button>
+            </Link>
+            <Link to={`/rooms/${room.roomId}/occupancy-history`}>
+                <button>Room Occupancy History</button>
             </Link>
         </div>
     );

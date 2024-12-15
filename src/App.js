@@ -10,6 +10,7 @@ import AddRooms from "./components/room/AddRooms";
 import EditRooms from "./components/room/EditRooms";
 import RoomDetails from "./components/room/RoomDetails";
 
+
 const App = () => {
     return (
         <Router>
@@ -23,6 +24,7 @@ const App = () => {
                 <Route path="/add-rooms" element={<AddRooms />} />
                 <Route path="/edit-rooms/:id" element={<EditRooms />} />
                 <Route path="/room-details/:id" element={<RoomDetails />} />
+                <Route path="/rooms/:roomId/occupancy-history" element={<RoomDetails />} />
             </Routes>
         </Router>
     );
