@@ -1,0 +1,16 @@
+/* RoomDetails.css */
+.occupancy-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.occupancy-table th, .occupancy-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.occupancy-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
