@@ -1,3 +1,4 @@
+```markdown
 # Hostel Management Frontend
 
 This is the frontend application for the Hostel Management System, built using React.
@@ -45,6 +46,7 @@ The application will be available at `http://localhost:3000`.
 - `src/components`: Contains the React components for the application.
     - `resident`: Components related to resident management.
     - `room`: Components related to room management.
+    - `grievance`: Components related to grievance management.
 - `src/config.js`: Configuration file for the API base URL.
 
 ## Available Scripts
@@ -59,6 +61,8 @@ In the project directory, you can run:
 
 - Add, edit, and delete residents.
 - Add, edit, and delete rooms.
+- Add, edit, and delete grievances.
+- View grievance details.
 - Search and filter residents.
 - Export resident data to CSV.
 
@@ -69,3 +73,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+```
