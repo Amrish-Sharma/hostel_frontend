@@ -11,6 +11,9 @@ const Welcome = () => {
             <p>
                 <Link to="/rooms">View Rooms</Link>
             </p>
+            <p>
+                <Link to="/grievance">Grievance Management</Link>
+            </p>
         </div>
     );
 };

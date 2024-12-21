@@ -9,8 +9,10 @@ import Rooms from "./components/room/Rooms";
 import AddRooms from "./components/room/AddRooms";
 import EditRooms from "./components/room/EditRooms";
 import RoomDetails from "./components/room/RoomDetails";
-
-
+import Grievance  from "./components/grievance/Grievance";
+import GrievanceList from "./components/grievance/GrievanceList";
+import GrievanceForm from "./components/grievance/GrievanceForm";
+import GrievanceDetails from "./components/grievance/GrievanceDetails";
 const App = () => {
     return (
         <Router>
@@ -25,6 +27,10 @@ const App = () => {
                 <Route path="/edit-rooms/:id" element={<EditRooms />} />
                 <Route path="/room-details/:id" element={<RoomDetails />} />
                 <Route path="/rooms/:roomId/occupancy-history" element={<RoomDetails />} />
+                <Route path="/grievance" element={<Grievance />} />
+                <Route path="/grievances" element={<GrievanceList />} />
+                <Route path="/add-grievance" element={<GrievanceForm />} />
+                <Route path={"grievance-details/:id"} element={<GrievanceDetails />} />
             </Routes>
         </Router>
     );
